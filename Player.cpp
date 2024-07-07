@@ -1,22 +1,30 @@
-#include "Player.h"
+#include "player.h"
 
 
-Player::Player(int x, int y, int width, int heigth)
+Player::Player(float x, float y, float width, float heigth)
 {
-	posX = x;
-	posY = y;
-	this->width = width;
-	this->heigth = heigth;
+	position.x = x;
+	position.y = y;
+	this->size.x = width;
+	this->size.y = heigth;
 }
 
-int Player::getPosX()
+Player::Player(){}
+
+void Player::Shoot(){}
+
+void Player::Move(){}
+
+void Player::Spawn() {}
+
+float Player::getPosX()
 {
-	return posX;
+	return position.x;
 }
 
-int Player::getPosY()
+float Player::getPosY()
 {
-	return posY;
+	return position.y;
 }
 
 float Player::getSpeed()
@@ -24,13 +32,28 @@ float Player::getSpeed()
 	return speed;
 }
 
-void Player::setPosX(int x)
+float Player::getHeigth() 
 {
-	posX = x;
+	return size.x;
 }
 
-void Player::setPosY(int y)
+float Player::getWidth()
 {
-	posY = y;
+	return size.y;
+}
+
+void Player::setPosX(float x)
+{
+	position.x = x;
+}
+
+void Player::setPosY(float y)
+{
+	position.y = y;
+}
+
+void Player::setSpeed(float speed) 
+{
+	this->speed = speed;
 }
 

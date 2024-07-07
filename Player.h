@@ -1,12 +1,11 @@
 #pragma once
+#include "raylib.h"
 class Player
 {
 protected:
 
-	int posX;
-	int posY;
-	int width;
-	int heigth;
+	Vector2 position;
+	Vector2 size;
 
 private:
 	float speed;
@@ -14,24 +13,24 @@ private:
 public:
 
 	Player();
-	Player(int x, int y, int width, int heigth);
+	Player(float x, float y, float width, float heigth);
 
-	virtual void Move();
-	virtual void Spawn();
+	void Move();
+	void Spawn();
 	void Shoot();
 
-	void setPosX(int x);
-	void setPosY(int y);
+	void setPosX(float x);
+	void setPosY(float y);
 	void setSpeed(float speed);
 	void setWidth(int width);
 	void setHeigth(int heigth);
 
 
-	int getPosX();
-	int getPosY();
+	float getPosX();
+	float getPosY();
 	float getSpeed();
-	int getWidth();
-	int getHeigth();
+	float getWidth();
+	float getHeigth();
 
 
 
