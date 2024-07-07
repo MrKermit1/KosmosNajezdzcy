@@ -1,11 +1,13 @@
 #pragma once
 #include "player.h"
-class Enemy: public Player
+class Enemy:Player
 {
+private:
+	bool formation[5][10];
 public:
 
 	Enemy();
-	Enemy(int x, int y, int width, int heigth, int speed);
+	Enemy(int x, int y, int width, int heigth);
 
 	void Move();
 	void Spawn();

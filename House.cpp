@@ -1,6 +1,6 @@
 #include "house.h"
 
-House::House(float x, float y, int width, int heigth, int lifePoints, int speed) : Player(x, y, width, heigth, speed)
+House::House(float x, float y, int width, int heigth, int lifePoints) : Player(x, y, width, heigth)
 {
 	this->lifePoints = lifePoints;
 }

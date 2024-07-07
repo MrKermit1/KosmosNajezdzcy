@@ -6,12 +6,14 @@ protected:
 
 	Vector2 position;
 	Vector2 size;
-	int speed;
+
+private:
+	float speed;
 
 public:
 
 	Player();
-	Player(float x, float y, float width, float heigth, int speed);
+	Player(float x, float y, float width, float heigth);
 
 	void Move();
 	void Spawn();
@@ -23,6 +25,7 @@ public:
 	void setWidth(int width);
 	void setHeigth(int heigth);
 
+
 	float getPosX();
 	float getPosY();
 	float getSpeed();
@@ -30,7 +33,7 @@ public:
 	float getHeigth();
 
 
-	
+
 
 };
 
