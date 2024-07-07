@@ -1,14 +1,23 @@
 #include "raylib.h"
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGTH 480
 
+#include "enemy.h"
 
 int main()
 {
-	InitWindow(SCREEN_HEIGTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
+
+	const int SCREEN_HEIGTH = 720;
+	const int SCREEN_WIDTH = 1280;
+
+	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
 
 	while (!WindowShouldClose())
 	{
+		Enemy enemy = Enemy(0, 0, 60, 60);
+		BeginDrawing();
+		ClearBackground(BLACK);
+		
+		enemy.Spawn();
 
+		EndDrawing();
 	}
 }
