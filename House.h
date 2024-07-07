@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "player.h"
 #pragma once
 class House : protected Player
 {
@@ -7,11 +7,13 @@ private:
 public:
 
 	void Spawn();
+	void Destroy();
 
 	House();
-	House(int x, int y, int width, int heigth, int lifePoints) : Player(x, y, width, heigth)
-	{
-		this->lifePoints = lifePoints;
-	}
+	House(float x, float y, int width, int heigth, int lifePoints);
+
+	void setLifePoints();
+
+	int getLifePoints();
 };
 
