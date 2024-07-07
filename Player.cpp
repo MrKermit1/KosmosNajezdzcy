@@ -1,12 +1,13 @@
 #include "player.h"
 
 
-Player::Player(float x, float y, float width, float heigth)
+Player::Player(float x, float y, float width, float heigth, int speed)
 {
 	position.x = x;
 	position.y = y;
 	this->size.x = width;
 	this->size.y = heigth;
+	this->speed = speed;
 }
 
 Player::Player(){}
