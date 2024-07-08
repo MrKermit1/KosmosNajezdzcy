@@ -12,7 +12,7 @@ public:
 
 	void Init();
 	void Spawn();
-	void Lower();
+	void Lower(bool);
 	void Move();
 };
 
