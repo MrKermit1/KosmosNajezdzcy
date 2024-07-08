@@ -2,6 +2,10 @@
 #include "player.h"
 class Enemy: public Player
 {
+private:
+
+	void CheckBorderPos(int pos);
+
 public:
 
 	Enemy();

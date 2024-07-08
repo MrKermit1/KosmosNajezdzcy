@@ -13,13 +13,15 @@ void Enemy::Spawn()
 	DrawRectangleV(position ,size, WHITE);
 }
 
+
+
 void Enemy::Move()
 {
-	if (position.x >= 1280)
+	/*if (position.x >= 1280)
 	{
 		position.x = 0;
 		position.y += size.y;
-	}
+	}*/
 	position.x += speed;
 }
 
