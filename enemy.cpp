@@ -35,7 +35,7 @@ void Enemy::Shoot()
 	if (!shootOut)
 	{
 		shootOut = true;
-		bullet = Bullet(position.x, position.y, 4);
+		bullet = Bullet(position.x, position.y, 4, RED);
 	}
 
 	if (bullet.getBulletPos().y > GetScreenHeight() - 100)
