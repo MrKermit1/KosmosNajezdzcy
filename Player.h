@@ -1,11 +1,17 @@
 #pragma once
 #include "raylib.h"
+#include "bullet.h"
+#include <vector>
 class Player
 {
 protected:
 
 	Vector2 position;
 	Vector2 size;
+	//Bullet bullet;
+	std::vector<Bullet> bullets;
+	bool shootOut = false;
+	
 	int speed;
 
 public:

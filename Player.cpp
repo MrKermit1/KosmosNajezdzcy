@@ -1,6 +1,7 @@
 #include "player.h"
 
 
+
 Player::Player(float x, float y, float width, float heigth, int speed)
 {
 	position.x = x;
@@ -12,11 +13,41 @@ Player::Player(float x, float y, float width, float heigth, int speed)
 
 Player::Player(){}
 
-void Player::Shoot(){}
+void Player::Shoot()
+{
+	
+}
 
-void Player::Move(){}
+void Player::Move()
+{
+	for (auto& bullet : bullets)
+	{
+		bullet.Move();
+	}
+	if (IsKeyPressed(KEY_SPACE))
+	{
+		bullets.push_back(Bullet(position.x, position.y, -5, YELLOW));
+	}
 
-void Player::Spawn() {}
+	if (IsKeyDown(KEY_A))
+	{
+		position.x -= speed;
+	}
+
+	if (IsKeyDown(KEY_D))
+	{
+		position.x += speed;
+	}
+}
+
+void Player::Spawn()
+{
+	DrawRectangleV(position, size, WHITE);
+	for (auto& bullet : bullets)
+	{
+		bullet.Spawn();
+	}
+}
 
 float Player::getPosX()
 {

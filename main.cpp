@@ -1,5 +1,5 @@
 #include "raylib.h"
-
+#include "Player.h"
 #include "enemy_grid.h"
 
 int main()
@@ -9,6 +9,7 @@ int main()
 	const int SCREEN_WIDTH = 1280;
 	//Enemy enemy = Enemy(100, 0, 60, 60, 3);
 	Enemy_grid grid;
+	Player player = Player(640, 900, 100, 50, 12);
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
 
 
@@ -23,6 +24,10 @@ int main()
 		grid.Spawn();
 		grid.Move();
 		grid.Shoot();
+
+		player.Spawn();
+		player.Move();
+		player.Shoot();
 		
 
 		EndDrawing();
