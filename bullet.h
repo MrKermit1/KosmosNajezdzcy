@@ -6,13 +6,13 @@ private:
 
 	int shootCount = 0;
 	int bulletSpeed = 1;
-
+	Color color;
 	Vector2 bulletPos;
 
 public:
 	bool active;
 	Bullet();
-	Bullet(int posX, int posY, int bulletSpeed);
+	Bullet(int posX, int posY, int bulletSpeed, Color color);
 	void Spawn();
 	void Move();
 	void Activate();
