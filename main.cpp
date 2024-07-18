@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "enemy_grid.h"
 
+
+
 int main()
 {
 
@@ -12,24 +14,23 @@ int main()
 	Player player = Player(640, 900, 100, 50, 12);
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
 
-
-
 	SetTargetFPS(60);
 	while (!WindowShouldClose())
 	{
 
-		BeginDrawing();
-		
-		ClearBackground(BLACK);
-		grid.Spawn();
+
+		player.Move();
+		player.Shoot();
+		grid.CheckCollision(player); 
+		//player.DeleteBullets();
 		grid.Move();
 		grid.Shoot();
 
-		player.Spawn();
-		player.Move();
-		player.Shoot();
-		
 
+		BeginDrawing();
+		ClearBackground(BLACK);
+		grid.Spawn();
+		player.Spawn();
 		EndDrawing();
 	}
 	CloseWindow();

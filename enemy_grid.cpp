@@ -1,5 +1,6 @@
 #include "enemy_grid.h"
 #include <iostream>
+#include "raylib.h"
 void Enemy_grid::Init()
 {
 	for (int i = 0; i < cols; i++)
@@ -7,13 +8,47 @@ void Enemy_grid::Init()
 		for (int j = 0; j < rows; j++)
 		{
 			isAlive[j][i] = true;
-			aliens[j][i] = Enemy(i * 60 + 5, j * 60 + 5, 55, 55, 3);
+			aliens[j][i] = Enemy(i * 60 + 5, j * 60 + 5, 55, 55, 3, WHITE);
 		}
 	}
 	/*for (int i = 0; i < cols; i++)
 	{
 		grid[4][i] = true;
 	}*/
+}
+
+void Enemy_grid::CheckCollision(Player& player)
+{
+	auto& bullets = player.getBulltets();
+	for (int i = 0; i < cols; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
+			if (!isAlive[j][i]) continue;
+			for (auto& bulletP : bullets)
+			{
+				auto it = bullets.begin();
+				while (it != bullets.end()) 
+				{
+					if (bulletP.isActive() && CheckCollisionRecs(aliens[j][i].getRect(), bulletP.getRect()))
+					{
+						aliens[j][i].setColor(BLACK);
+						isAlive[j][i] = false;
+						bulletP.Deactivate();
+						player.DeleteBullet(it);
+						//bulletP.Test();
+						std::cout << "Bullet hit alien at (" << j << ", " << i << ")\n";
+						break;
+					}
+					else {
+						it++;
+					}
+					
+				}
+				
+			}
+		}
+	}
 }
 
 Enemy_grid::Enemy_grid()
@@ -90,6 +125,7 @@ void Enemy_grid::Spawn()
 			{
 				//DrawRectangle(i * 60 + 5, j * 60 + 5, 55, 55, WHITE);
 				aliens[j][i].Spawn();
+
 			}
 			
 		}

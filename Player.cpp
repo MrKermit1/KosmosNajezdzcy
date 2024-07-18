@@ -13,21 +13,54 @@ Player::Player(float x, float y, float width, float heigth, int speed)
 
 Player::Player(){}
 
+void Player::DeleteBullet(std::vector<Bullet>::iterator it)
+{
+	bullets.erase(it);
+	std::cout << "Delted Bullet\n";
+}
+
 void Player::Shoot()
 {
-	
+	if (IsKeyPressed(KEY_SPACE)) {
+		bullets.push_back(Bullet(position.x + size.x / 2, position.y, -5, YELLOW));
+	}
+}
+
+void Player::DeleteBullets() {
+	std::cout << "Starting bullet deletion process...\n";
+	for (auto x = bullets.begin(); x != bullets.end();) {
+		std::cout << "Checking bullet at position (" << x->getBulletPos().x << ", " << x->getBulletPos().y << "), active: " << x->active << "\n";
+		if (x->active == false) {
+			x = bullets.erase(x);
+			std::cout << "Deleted an inactive bullet\n";
+		}
+		else {
+			++x;
+		}
+	}
+	std::cout << "Bullet deletion process completed.\n";
+}
+
+std::vector<Bullet>& Player::getBulltets()
+{
+	return bullets;
+}
+
+Rectangle Player::getRect()
+{
+	return { position.x, position.y, size.x, size.y };
 }
 
 void Player::Move()
 {
 	for (auto& bullet : bullets)
 	{
-		bullet.Move();
+		if (bullet.isActive())
+		{
+			bullet.Move();
+		}
 	}
-	if (IsKeyPressed(KEY_SPACE))
-	{
-		bullets.push_back(Bullet(position.x, position.y, -5, YELLOW));
-	}
+
 
 	if (IsKeyDown(KEY_A))
 	{
@@ -43,9 +76,10 @@ void Player::Move()
 void Player::Spawn()
 {
 	DrawRectangleV(position, size, WHITE);
-	for (auto& bullet : bullets)
-	{
-		bullet.Spawn();
+	for (auto& bullet : bullets) {
+		if (bullet.isActive()) {
+			bullet.Spawn();
+		}
 	}
 }
 
