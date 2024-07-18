@@ -6,7 +6,7 @@ Bullet::Bullet(int posX, int posY, int bulletSpeed, Color color)
 	bulletPos.y = posY;
 	this->bulletSpeed = bulletSpeed;
 	this->color = color;
-
+	active = true;
 }
 
 Bullet::Bullet()
@@ -22,20 +22,41 @@ void Bullet::Activate()
 	active = true;
 }
 
-bool Bullet::isActive()
+void Bullet::Deactivate()
+{
+	active = false;
+}
+
+bool Bullet::isActive() const
 {
 	return active;
 }
 
 void Bullet::Spawn()
 {
+	if (active)
+	{
+		DrawRectangle(bulletPos.x, bulletPos.y, 5, 10, color);
+	}
+	
+}
 
-	DrawRectangle(bulletPos.x, bulletPos.y, 5, 10, color);
+void Bullet::Test()
+{
+	std::cout << active << "\n";
+}
 
+Rectangle Bullet::getRect() const
+{
+	return { bulletPos.x, bulletPos.y, 5, 10 };
 }
 	
 
 void Bullet::Move()
 {	
-	bulletPos.y += bulletSpeed;	
+	if (active)
+	{
+		bulletPos.y += bulletSpeed;
+	}
+
 }
