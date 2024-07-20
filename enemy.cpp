@@ -26,7 +26,6 @@ void Enemy::Spawn()
 	{
 		bullet.Spawn();
 	}
-
 }
 
 Bullet Enemy::getBullet()
@@ -37,7 +36,11 @@ Bullet Enemy::getBullet()
 void Enemy::Move()
 {
 	position.x += speed;
-	bullet.Move();
+	if (shootOut)
+	{
+		bullet.Move();
+	}
+
 }
 
 bool Enemy::IsColorBlack(Color color)
@@ -55,7 +58,7 @@ void Enemy::Shoot()
 			bullet = Bullet(position.x, position.y, 4, RED);
 		}
 
-		if (bullet.getBulletPos().y > GetScreenHeight() - 100)
+		if (bullet.getBulletPos().y >= GetScreenHeight() - 250)
 		{
 			//bullet = Bullet(position.x, position.y, 4);
 			shootOut = false;
