@@ -16,7 +16,6 @@ Player::Player(){}
 void Player::DeleteBullet(std::vector<Bullet>::iterator it)
 {
 	bullets.erase(it);
-	std::cout << "Delted Bullet\n";
 }
 
 void Player::Shoot()
