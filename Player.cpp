@@ -26,20 +26,17 @@ void Player::Shoot()
 	}
 }
 
-void Player::DeleteBullets() {
-	std::cout << "Starting bullet deletion process...\n";
+/*void Player::DeleteBullets() {
 	for (auto x = bullets.begin(); x != bullets.end();) {
-		std::cout << "Checking bullet at position (" << x->getBulletPos().x << ", " << x->getBulletPos().y << "), active: " << x->active << "\n";
 		if (x->active == false) {
 			x = bullets.erase(x);
-			std::cout << "Deleted an inactive bullet\n";
+			
 		}
 		else {
 			++x;
 		}
 	}
-	std::cout << "Bullet deletion process completed.\n";
-}
+}*/
 
 std::vector<Bullet>& Player::getBulltets()
 {
