@@ -17,9 +17,10 @@ public:
 	void Init();
 	Enemy_grid();
 
-	void Lower(bool);
+	void Lower();
 	void Spawn();
 	void Move();
 	void Shoot();
-	void CheckCollision(Player&);
+	void CheckPlayerHits(Player&);
+	void CheckAlienHits(Player&);
 };

@@ -17,7 +17,7 @@ void Enemy_grid::Init()
 	}*/
 }
 
-void Enemy_grid::CheckCollision(Player& player)
+void Enemy_grid::CheckPlayerHits(Player& player)
 {
 	auto& bullets = player.getBulltets();
 	for (int i = 0; i < cols; i++)
@@ -34,9 +34,7 @@ void Enemy_grid::CheckCollision(Player& player)
 					{
 						aliens[j][i].setColor(BLACK);
 						isAlive[j][i] = false;
-						bulletP.Deactivate();
 						player.DeleteBullet(it);
-						//bulletP.Test();
 						std::cout << "Bullet hit alien at (" << j << ", " << i << ")\n";
 						break;
 					}
@@ -51,28 +49,30 @@ void Enemy_grid::CheckCollision(Player& player)
 	}
 }
 
+void Enemy_grid::CheckAlienHits(Player& player)
+{
+
+}
+
+
+
 Enemy_grid::Enemy_grid()
 {
 	Init();
 	lastShotTime = 0.0;
 }
 
-void Enemy_grid::Lower(bool border)
+void Enemy_grid::Lower()
 {
 	for (int i = 0; i < cols; i++)
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			if (border)
-			{
-				aliens[j][i].setPosX(1280 - (i * 60 + 1));
-			}
-			else
-			{
-				aliens[j][i].setPosX(0 + (i * 60 + 1));
-			}
-			aliens[j][i].setSpeed(aliens[j][i].getSpeed() * -1);
+
+
 			aliens[j][i].setPosY(aliens[j][i].getPosY() + aliens[j][i].getHeigth());
+			aliens[j][i].setSpeed(aliens[j][i].getSpeed() * -1);
+			
 
 		}
 	}
@@ -97,22 +97,38 @@ void Enemy_grid::Shoot()
 
 void Enemy_grid::Move()
 {
+	bool shouldLower = false;
+
 	for (int i = 0; i < cols; i++)
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			if (aliens[j][i].getPosX() >= 1280)
+			if (aliens[j][i].getPosX() >= 1280 - aliens[j][i].getWidth() || aliens[j][i].getPosX() <= 0)
 			{
-				Lower(true);
+				shouldLower = true;
+				break;
 			}
-			if (aliens[j][i].getPosX() <= 0 - aliens[j][i].getWidth())
-			{
-				Lower(false);
-			}
+		}
+		if (shouldLower)
+		{
+			break;
+		}
+	}
+
+	if (shouldLower)
+	{
+		Lower();
+	}
+
+	for (int i = 0; i < cols; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
 			aliens[j][i].Move();
 		}
 	}
 }
+
 
 void Enemy_grid::Spawn()
 {
