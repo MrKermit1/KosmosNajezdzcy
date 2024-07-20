@@ -21,8 +21,7 @@ int main()
 
 		player.Move();
 		player.Shoot();
-		grid.CheckCollision(player); 
-		//player.DeleteBullets();
+		grid.CheckPlayerHits(player); 
 		grid.Move();
 		grid.Shoot();
 
