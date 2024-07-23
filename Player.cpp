@@ -1,7 +1,5 @@
 #include "player.h"
 
-
-
 Player::Player(float x, float y, float width, float heigth, int speed)
 {
 	position.x = x;
@@ -25,18 +23,6 @@ void Player::Shoot()
 	}
 }
 
-/*void Player::DeleteBullets() {
-	for (auto x = bullets.begin(); x != bullets.end();) {
-		if (x->active == false) {
-			x = bullets.erase(x);
-			
-		}
-		else {
-			++x;
-		}
-	}
-}*/
-
 std::vector<Bullet>& Player::getBulltets()
 {
 	return bullets;
@@ -51,7 +37,7 @@ void Player::Move()
 {
 	for (auto& bullet : bullets)
 	{
-		if (bullet.isActive())
+		if (bullet.isActive() && !(bullet.getBulletPos().y < 10))
 		{
 			bullet.Move();
 		}
@@ -73,7 +59,7 @@ void Player::Spawn()
 {
 	DrawRectangleV(position, size, WHITE);
 	for (auto& bullet : bullets) {
-		if (bullet.isActive()) {
+		if (bullet.isActive() && !(bullet.getBulletPos().y < 10)) {
 			bullet.Spawn();
 		}
 	}
@@ -104,9 +90,34 @@ float Player::getWidth()
 	return size.y;
 }
 
+int Player::getScore()
+{
+	return score;
+}
+
+int Player::getLife()
+{
+	return life;
+}
+
+void Player::setLife(int life)
+{
+	this->life = life;
+}
+
 void Player::setPosX(float x)
 {
 	position.x = x;
+}
+
+void Player::setHeigth(int h)
+{
+	size.y = h;
+}
+
+void Player::setWidth(int w)
+{
+	size.x = w;
 }
 
 void Player::setPosY(float y)
@@ -117,5 +128,10 @@ void Player::setPosY(float y)
 void Player::setSpeed(float speed) 
 {
 	this->speed = speed;
+}
+
+void Player::addScore(int pscore)
+{
+	this->score += pscore;
 }
 
