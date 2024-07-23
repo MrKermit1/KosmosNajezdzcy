@@ -7,14 +7,15 @@ void Enemy_grid::Init()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			isAlive[j][i] = true;
-			aliens[j][i] = Enemy(i * 60 + 5, j * 60 + 5, 55, 55, 3, WHITE);
+			aliens[j][i] = Enemy(i * 50 + 5, j * 50 + 100, 45, 45, 1, WHITE);
 		}
 	}
-	/*for (int i = 0; i < cols; i++)
-	{
-		grid[4][i] = true;
-	}*/
+}
+
+Enemy_grid::Enemy_grid()
+{
+	Init();
+	lastShotTime = 0.0;
 }
 
 void Enemy_grid::CheckPlayerHits(Player& player)
@@ -24,7 +25,7 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			if (!isAlive[j][i]) continue;
+			if (!aliens[j][i].getIsAlive()) continue;
 			for (auto& bulletP : bullets)
 			{
 				auto it = bullets.begin();
@@ -33,9 +34,11 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 					if (bulletP.isActive() && CheckCollisionRecs(aliens[j][i].getRect(), bulletP.getRect()))
 					{
 						aliens[j][i].setColor(BLACK);
-						isAlive[j][i] = false;
+						aliens[j][i].setIsAlive(false);
 						player.DeleteBullet(it);
+						player.addScore(100);
 						std::cout << "Bullet hit alien at (" << j << ", " << i << ")\n";
+						std::cout << "Player score: "<<player.getScore()<<"\n";
 						break;
 					}
 					else {
@@ -51,15 +54,16 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 
 void Enemy_grid::CheckAlienHits(Player& player)
 {
-
-}
-
-
-
-Enemy_grid::Enemy_grid()
-{
-	Init();
-	lastShotTime = 0.0;
+	for (int i = 0; i < cols; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
+			if (aliens[j][i].getBullet().isActive() && CheckCollisionRecs(aliens[j][i].getBullet().getRect(), player.getRect()))
+			{
+				player.setLife(player.getLife() - 1);
+			}
+		}
+	}
 }
 
 void Enemy_grid::Lower()
@@ -68,12 +72,16 @@ void Enemy_grid::Lower()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-
-
 			aliens[j][i].setPosY(aliens[j][i].getPosY() + aliens[j][i].getHeigth());
+			if (aliens[j][i].getSpeed() < 0)
+			{
+				aliens[j][i].setSpeed(aliens[j][i].getSpeed() -1);
+			}
+			else if (aliens[j][i].getSpeed() > 0)
+			{
+				aliens[j][i].setSpeed(aliens[j][i].getSpeed() + 1);
+			}
 			aliens[j][i].setSpeed(aliens[j][i].getSpeed() * -1);
-			
-
 		}
 	}
 }
@@ -85,7 +93,7 @@ void Enemy_grid::Shoot()
 	{
 		int randomCol = GetRandomValue(0, cols - 1);
 		int randomRow = GetRandomValue(0, rows - 1);
-		if (isAlive[randomRow][randomCol])
+		if (aliens[randomRow][randomCol].getIsAlive())
 		{
 			aliens[randomRow][randomCol].Shoot();
 			lastShotTime = GetTime();
@@ -137,11 +145,9 @@ void Enemy_grid::Spawn()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			if (isAlive[j][i])
+			if (aliens[j][i].getIsAlive())
 			{
-				//DrawRectangle(i * 60 + 5, j * 60 + 5, 55, 55, WHITE);
 				aliens[j][i].Spawn();
-
 			}
 			
 		}
