@@ -7,6 +7,7 @@ Enemy::Enemy(){}
 Enemy::Enemy(int x, int y, int width, int heigth, int speed, Color color) : Player(x, y, width, heigth, speed)
 {
 	this->color = color;
+	isAlive = true;
 }
 
 void Enemy::setColor(Color color)
@@ -22,7 +23,7 @@ void Enemy::setShotout(bool shootout)
 void Enemy::Spawn()
 { 
 	DrawRectangleV(position ,size, color);
-	if (shootOut)
+	if (!(bullet.getBulletPos().y >= GetScreenHeight() - 10) && bullet.isActive())
 	{
 		bullet.Spawn();
 	}
@@ -36,7 +37,8 @@ Bullet Enemy::getBullet()
 void Enemy::Move()
 {
 	position.x += speed;
-	if (shootOut)
+	
+	if (!(bullet.getBulletPos().y >= GetScreenHeight() - 10) && bullet.isActive())
 	{
 		bullet.Move();
 	}
@@ -49,7 +51,7 @@ bool Enemy::IsColorBlack(Color color)
 }
 
 void Enemy::Shoot()
-{	
+{
 	if (!IsColorBlack(color))
 	{
 		if (!shootOut)
@@ -57,13 +59,15 @@ void Enemy::Shoot()
 			shootOut = true;
 			bullet = Bullet(position.x, position.y, 4, RED);
 		}
-
-		if (bullet.getBulletPos().y >= GetScreenHeight() - 250)
-		{
-			//bullet = Bullet(position.x, position.y, 4);
-			shootOut = false;
-		}
 	}
-	
+}
 
+void Enemy::setIsAlive(bool alive)
+{
+	isAlive = alive;
+}
+
+bool Enemy::getIsAlive()
+{
+	return isAlive;
 }

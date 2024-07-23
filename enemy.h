@@ -7,6 +7,7 @@ private:
 
 	Bullet bullet;
 	Color color;
+	bool isAlive;
 	bool shootOut = false;
 public:
 
@@ -18,9 +19,11 @@ public:
 	void Shoot();
 
 	bool IsColorBlack(Color);
+	bool getIsAlive();
 	Bullet getBullet();
 	void setColor(Color);
 	void setShotout(bool);
+	void setIsAlive(bool);
 
 };
 
