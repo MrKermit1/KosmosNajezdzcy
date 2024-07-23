@@ -25,6 +25,7 @@ void Bullet::Activate()
 void Bullet::Deactivate()
 {
 	active = false;
+	std::cout << "bullet is now: " << active << "\n";
 }
 
 bool Bullet::isActive() const

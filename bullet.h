@@ -7,11 +7,11 @@ private:
 	int bulletSpeed = 1;
 	Color color;
 	Vector2 bulletPos;
-
-public:
 	bool active;
+public:
+	
 	Bullet();
-	Bullet(int posX, int posY, int bulletSpeed, Color color);
+	Bullet(int, int, int, Color);
 	void Spawn();
 	void Move();
 	Rectangle getRect() const;
