@@ -1,17 +1,16 @@
 #pragma once
 #include "raylib.h"
-class Bullet
+#include "gameobject.h"
+class Bullet : public GameObject
 {
 private:
 
-	int bulletSpeed = 1;
 	Color color;
-	Vector2 bulletPos;
 	bool active;
 public:
 	
 	Bullet();
-	Bullet(int, int, int, Color);
+	Bullet(int, int, int, int, int, Color);
 	void Spawn();
 	void Move();
 	Rectangle getRect() const;
@@ -21,6 +20,5 @@ public:
 	void Test();
 
 	bool isActive() const;
-	Vector2 getBulletPos();
 };
 

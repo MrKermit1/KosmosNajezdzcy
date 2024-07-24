@@ -16,6 +16,7 @@ Enemy_grid::Enemy_grid()
 {
 	Init();
 	lastShotTime = 0.0;
+	speed = 5;
 }
 
 void Enemy_grid::CheckPlayerHits(Player& player)
@@ -136,7 +137,6 @@ void Enemy_grid::Move()
 		}
 	}
 }
-
 
 void Enemy_grid::Spawn()
 {

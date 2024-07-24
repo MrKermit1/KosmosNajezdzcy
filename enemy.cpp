@@ -4,7 +4,7 @@
 
 Enemy::Enemy(){}
 
-Enemy::Enemy(int x, int y, int width, int heigth, int speed, Color color) : Player(x, y, width, heigth, speed)
+Enemy::Enemy(int x, int y, int width, int heigth, int speed, Color color) : GameObject(x, y, width, heigth, speed)
 {
 	this->color = color;
 	isAlive = true;
@@ -23,7 +23,7 @@ void Enemy::setShotout(bool shootout)
 void Enemy::Spawn()
 { 
 	DrawRectangleV(position ,size, color);
-	if (!(bullet.getBulletPos().y >= GetScreenHeight() - 10) && bullet.isActive())
+	if (!(bullet.getPosition().y >= GetScreenHeight() - 10) && bullet.isActive())
 	{
 		bullet.Spawn();
 	}
@@ -38,7 +38,7 @@ void Enemy::Move()
 {
 	position.x += speed;
 	
-	if (!(bullet.getBulletPos().y >= GetScreenHeight() - 10) && bullet.isActive())
+	if (!(bullet.getPosition().y >= GetScreenHeight() - 10) && bullet.isActive())
 	{
 		bullet.Move();
 	}
@@ -57,7 +57,7 @@ void Enemy::Shoot()
 		if (!shootOut)
 		{
 			shootOut = true;
-			bullet = Bullet(position.x, position.y, 4, RED);
+			bullet = Bullet(position.x, position.y, 5, 10, 4, RED);
 		}
 	}
 }

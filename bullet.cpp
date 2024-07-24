@@ -1,10 +1,7 @@
 #include "bullet.h"
 #include <iostream>
-Bullet::Bullet(int posX, int posY, int bulletSpeed, Color color)
+Bullet::Bullet(int posX, int posY, int width, int heigth, int speed, Color color) : GameObject(posX, posY, width, heigth, speed)
 {
-	bulletPos.x = posX;
-	bulletPos.y = posY;
-	this->bulletSpeed = bulletSpeed;
 	this->color = color;
 	active = true;
 }
@@ -12,10 +9,6 @@ Bullet::Bullet(int posX, int posY, int bulletSpeed, Color color)
 Bullet::Bullet()
 {}
 
-Vector2 Bullet::getBulletPos()
-{
-	return bulletPos;
-}
 
 void Bullet::Activate()
 {
@@ -37,7 +30,7 @@ void Bullet::Spawn()
 {
 	if (active)
 	{
-		DrawRectangle(bulletPos.x, bulletPos.y, 5, 10, color);
+		DrawRectangle(position.x, position.y, size.x, size.y, color);
 	}
 	
 }
@@ -49,7 +42,7 @@ void Bullet::Test()
 
 Rectangle Bullet::getRect() const
 {
-	return { bulletPos.x, bulletPos.y, 5, 10 };
+	return { position.x, position.y, size.x, size.y };
 }
 	
 
@@ -57,7 +50,7 @@ void Bullet::Move()
 {	
 	if (active)
 	{
-		bulletPos.y += bulletSpeed;
+		position.y += speed;
 	}
 
 }

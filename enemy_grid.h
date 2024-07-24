@@ -6,7 +6,7 @@ class Enemy_grid
 {
 private:
 	Bullet bullet;
-	int speed = 5;
+	int speed;
 	const static int rows = 5;
 	const static int cols = 10;
 	float lastShotTime;
