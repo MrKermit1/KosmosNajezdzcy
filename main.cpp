@@ -8,7 +8,7 @@ Enemy_grid grid;
 Player player = Player(640, 900, 100, 50, 12);
 int playerLife = 3;
 bool gameOver = false;
-void gui()
+void GUI()
 {
 	if (!gameOver)
 	{
@@ -21,7 +21,7 @@ void gui()
 	
 }
 
-void reset()
+void Reset()
 {
 	if (player.getLife() + 1 == playerLife)
 	{
@@ -55,7 +55,7 @@ int main()
 	{
 		BeginDrawing();
 		ClearBackground(BLACK);
-		gui();
+		GUI();
 		if (!gameOver)
 		{
 			player.Move();
@@ -64,7 +64,7 @@ int main()
 			grid.CheckAlienHits(player);
 			grid.Move();
 			grid.Shoot();
-			reset();
+			Reset();
 			grid.Spawn();
 			player.Spawn();
 
