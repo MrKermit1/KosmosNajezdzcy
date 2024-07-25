@@ -8,6 +8,7 @@ Enemy::Enemy(int x, int y, int width, int heigth, int speed, Color color) : Game
 {
 	this->color = color;
 	isAlive = true;
+	shootOut = false;
 }
 
 void Enemy::setColor(Color color)

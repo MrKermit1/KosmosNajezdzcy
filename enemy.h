@@ -8,7 +8,7 @@ private:
 	Bullet bullet;
 	Color color;
 	bool isAlive;
-	bool shootOut = false;
+	bool shootOut;
 public:
 
 	Enemy(int, int, int, int, int, Color);
@@ -21,6 +21,7 @@ public:
 	bool IsColorBlack(Color);
 	bool getIsAlive();
 	Bullet getBullet();
+
 	void setColor(Color);
 	void setShotout(bool);
 	void setIsAlive(bool);
