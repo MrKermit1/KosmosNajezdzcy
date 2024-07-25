@@ -1,7 +1,8 @@
 #include "player.h"
 
-Player::Player(float x, float y, float width, float heigth, int speed) : GameObject(x, y, width, heigth, speed)
+Player::Player(float x, float y, float width, float heigth, int speed, int life) : GameObject(x, y, width, heigth, speed)
 {
+	this->life = life;
 }
 
 Player::Player(){}
@@ -80,3 +81,7 @@ void Player::addScore(int pscore)
 	this->score += pscore;
 }
 
+void Player::ResetBullets()
+{
+	bullets.clear();
+}

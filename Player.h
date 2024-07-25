@@ -11,12 +11,12 @@ protected:
 	std::vector<Bullet> bullets;
 	int score = 0;
 	bool shootOut = false;
-	int life = 3;
+	int life;
 
 public:
 	
 	Player();
-	Player(float, float, float, float, int);
+	Player(float, float, float, float, int, int);
 
 	void Move();
 	void Spawn();
@@ -27,6 +27,7 @@ public:
 	int getScore();
 	int getLife();
 	void addScore(int);
+	void ResetBullets();
 
 	std::vector<Bullet>& getBulltets();
 	Rectangle getRect();
