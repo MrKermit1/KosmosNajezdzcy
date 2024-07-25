@@ -35,17 +35,11 @@ void Bullet::Spawn()
 	
 }
 
-void Bullet::Test()
-{
-	std::cout << active << "\n";
-}
-
 Rectangle Bullet::getRect() const
 {
 	return { position.x, position.y, size.x, size.y };
 }
 	
-
 void Bullet::Move()
 {	
 	if (active)

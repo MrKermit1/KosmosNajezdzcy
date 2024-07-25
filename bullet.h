@@ -4,7 +4,6 @@
 class Bullet : public GameObject
 {
 private:
-
 	Color color;
 	bool active;
 public:
@@ -13,12 +12,11 @@ public:
 	Bullet(int, int, int, int, int, Color);
 	void Spawn();
 	void Move();
-	Rectangle getRect() const;
 
 	void Activate();
 	void Deactivate();
-	void Test();
-
 	bool isActive() const;
+
+	Rectangle getRect() const;
 };
 
