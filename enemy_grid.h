@@ -9,8 +9,8 @@ private:
 	int speed;
 	const static int rows = 5;
 	const static int cols = 10;
-	float lastShotTime;
 	constexpr static float shootInterval = 0.50;
+	float lastShotTime;
 	Enemy aliens[rows][cols];
 public:
 	void Init();
