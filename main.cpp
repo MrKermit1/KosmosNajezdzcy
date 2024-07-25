@@ -5,8 +5,8 @@
 const int SCREEN_HEIGTH = 1000;
 const int SCREEN_WIDTH = 1280;
 Enemy_grid grid;
-Player player = Player(640, 900, 100, 50, 12);
-int playerLife = 3;
+Player player = Player(640, 900, 100, 50, 12, 4);
+int playerLife = player.getLife();
 bool gameOver = false;
 void GUI()
 {
@@ -16,7 +16,7 @@ void GUI()
 		DrawText(TextFormat("Life: %02i", player.getLife()), 1150, 40, 20, WHITE);
 	}
 	else {
-		DrawText(TextFormat("GAME OVER", player.getScore()), SCREEN_WIDTH/2, SCREEN_HEIGTH/2, 20, WHITE);
+		DrawText(TextFormat("GAME OVER\n\nYour Score: %08i", player.getScore()), (SCREEN_WIDTH / 2) - 100, SCREEN_HEIGTH / 2, 20, WHITE);
 	}
 	
 }
@@ -26,11 +26,12 @@ void Reset()
 	if (player.getLife() + 1 == playerLife)
 	{
 		grid = Enemy_grid();
-		//Player player = Player(640, 900, 100, 50, 12);
+		player.ResetBullets();
 		player.setPosX(640);
 		player.setPosY(900.);
 		player.setWidth(100);
 		player.setHeigth(50);
+
 		
 		playerLife--;
 
