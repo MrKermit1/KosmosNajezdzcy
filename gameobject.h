@@ -10,6 +10,8 @@ protected:
 public:
 
 	GameObject(float, float, float, float, int);
+	GameObject(float, float, float, float);
+	GameObject(float, float);
 	GameObject();
 
 	void Move();
@@ -30,8 +32,3 @@ public:
 	float getSpeed();
 	float getHeigth();
 };
-
-class gameobject
-{
-};
-

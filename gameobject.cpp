@@ -8,6 +8,20 @@ GameObject::GameObject(float posX, float posY, float width, float heigth, int sp
 	this->speed = speed;
 }
 
+GameObject::GameObject(float posX, float posY, float width, float heigth)
+{
+	position = { posX, posY };
+	size = { width ,heigth };
+	speed = NULL;
+}
+
+GameObject::GameObject(float posX, float posY)
+{
+	position = { posX, posY };
+	size = { NULL ,NULL };
+	speed = NULL;
+}
+
 GameObject::GameObject(){}
 
 Vector2 GameObject::getPosition()
