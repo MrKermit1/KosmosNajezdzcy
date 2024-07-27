@@ -23,11 +23,12 @@ void Enemy::setShotout(bool shootout)
 
 void Enemy::Spawn()
 { 
-	DrawRectangleV(position ,size, color);
-	if (!(bullet.getPosition().y >= GetScreenHeight() - 10) && bullet.isActive())
-	{
-		bullet.Spawn();
+	for (auto& bullet : bullets) {
+		if (bullet.isActive() && !(bullet.getPosition().y >= GetScreenHeight() - 10)) {
+			bullet.Spawn();
+		}
 	}
+	DrawRectangleV(position ,size, color);
 }
 
 Bullet Enemy::getBullet()
@@ -37,13 +38,12 @@ Bullet Enemy::getBullet()
 
 void Enemy::Move()
 {
-	position.x += speed;
-	
-	if (!(bullet.getPosition().y >= GetScreenHeight() - 10) && bullet.isActive())
-	{
-		bullet.Move();
+	for (auto& bullet : bullets) {
+		if (bullet.isActive() && !(bullet.getPosition().y >= GetScreenHeight() - 10)) {
+			bullet.Move();
+		}
 	}
-
+	position.x += speed;
 }
 
 bool Enemy::IsColorBlack(Color color)
@@ -58,7 +58,8 @@ void Enemy::Shoot()
 		if (!shootOut)
 		{
 			shootOut = true;
-			bullet = Bullet(position.x, position.y, 5, 10, 4, RED);
+			//bullet = Bullet(position.x, position.y, 5, 10, 4, RED);
+			bullets.push_back(Bullet(position.x + size.x / 2, position.y, 5, 10, 5, RED));
 		}
 	}
 }
@@ -71,4 +72,14 @@ void Enemy::setIsAlive(bool alive)
 bool Enemy::getIsAlive()
 {
 	return isAlive;
+}
+
+void Enemy::DeleteBullet(std::vector<Bullet>::iterator it)
+{
+	bullets.erase(it);
+}
+
+std::vector<Bullet>& Enemy::getBulltets()
+{
+	return bullets;
 }

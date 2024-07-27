@@ -6,9 +6,11 @@ class Enemy: public GameObject
 private:
 
 	Bullet bullet;
+	std::vector<Bullet> bullets;
 	Color color;
 	bool isAlive;
 	bool shootOut;
+
 public:
 
 	Enemy(int, int, int, int, int, Color);
@@ -25,6 +27,10 @@ public:
 	void setColor(Color);
 	void setShotout(bool);
 	void setIsAlive(bool);
+
+	void DeleteBullet(std::vector<Bullet>::iterator);
+	void ResetBullets();
+	std::vector<Bullet>& getBulltets();
 
 };
 
