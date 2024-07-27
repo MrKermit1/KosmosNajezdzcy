@@ -1,7 +1,8 @@
 #pragma once
 #include "enemy.h"
 #include "raylib.h"
-#include "Player.h"
+#include "player.h"
+#include "obstacle.h"
 class Enemy_grid
 {
 private:
@@ -21,5 +22,5 @@ public:
 	void Move();
 	void Shoot();
 	void CheckPlayerHits(Player&);
-	void CheckAlienHits(Player&);
+	void CheckAlienHits(Player&, Obstacle*);
 };

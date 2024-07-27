@@ -29,14 +29,14 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 			if (!aliens[j][i].getIsAlive()) continue;
 			for (auto& bulletP : bullets)
 			{
-				auto it = bullets.begin();
-				while (it != bullets.end()) 
+				
+				for (auto it = bullets.begin(); it != bullets.end();)
 				{
 					if (bulletP.isActive() && CheckCollisionRecs(aliens[j][i].getRect(), bulletP.getRect()))
 					{
-						aliens[j][i].setColor(BLACK);
+						//aliens[j][i].setColor(BLACK);
 						aliens[j][i].setIsAlive(false);
-						player.DeleteBullet(it);
+						it = bullets.erase(it);
 						player.addScore(100);
 						std::cout << "Bullet hit alien at (" << j << ", " << i << ")\n";
 						std::cout << "Player score: "<<player.getScore()<<"\n";
@@ -53,18 +53,57 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 	}
 }
 
-void Enemy_grid::CheckAlienHits(Player& player)
+void Enemy_grid::CheckAlienHits(Player& player, Obstacle* obstacles)
 {
+	if (obstacles != nullptr)
+	{
+		for (int i = 0; i < cols; i++)
+		{
+			for (int j = 0; j < rows; j++)
+			{
+				auto& bullets = aliens[j][i].getBulltets();
+				for (int x = 0; x < 3; x++)
+				{
+					for (auto it = bullets.begin(); it != bullets.end();)
+					{
+						if (it->isActive() && (obstacles + x)->CheckCollisionWithBullets(it))
+						{
+							it = bullets.erase(it);
+						}
+						else {
+							++it;
+						}
+					}
+				}
+				
+			}
+		}
+
+	}
+	else {
+		std::cout << "null pointer detected!!!\n";
+	}
 	for (int i = 0; i < cols; i++)
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			if (aliens[j][i].getBullet().isActive() && CheckCollisionRecs(aliens[j][i].getBullet().getRect(), player.getRect()))
+			auto& bullets = aliens[j][i].getBulltets();
+			for (auto it = bullets.begin(); it != bullets.end();)
 			{
-				player.setLife(player.getLife() - 1);
+				if (it->isActive() && CheckCollisionRecs(it->getRect(), player.getRect()))
+                {
+                    it->Deactivate();
+                    it = bullets.erase(it);
+                    player.setLife(player.getLife() - 1);
+                }
+                else
+                {
+                    ++it;
+                }
 			}
 		}
 	}
+	
 }
 
 void Enemy_grid::Lower()
