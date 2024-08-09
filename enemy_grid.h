@@ -8,6 +8,7 @@ class Enemy_grid
 private:
 	Bullet bullet;
 	int speed;
+	int quanity;
 	const static int rows = 5;
 	const static int cols = 10;
 	constexpr static float shootInterval = 0.50;
@@ -23,4 +24,6 @@ public:
 	void Shoot();
 	void CheckPlayerHits(Player&);
 	void CheckAlienHits(Player&, Obstacle*);
+
+	bool isGridEmpty();
 };

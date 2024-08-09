@@ -17,8 +17,10 @@ Enemy_grid::Enemy_grid()
 	Init();
 	lastShotTime = 0.0;
 	speed = 5;
+	quanity = rows * cols;
 }
 
+//Check if player hit enemy
 void Enemy_grid::CheckPlayerHits(Player& player)
 {
 	auto& bullets = player.getBulltets();
@@ -34,12 +36,11 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 				{
 					if (bulletP.isActive() && CheckCollisionRecs(aliens[j][i].getRect(), bulletP.getRect()))
 					{
-						//aliens[j][i].setColor(BLACK);
 						aliens[j][i].setIsAlive(false);
 						it = bullets.erase(it);
 						player.addScore(100);
 						std::cout << "Bullet hit alien at (" << j << ", " << i << ")\n";
-						std::cout << "Player score: "<<player.getScore()<<"\n";
+						quanity--;
 						break;
 					}
 					else {
@@ -52,7 +53,7 @@ void Enemy_grid::CheckPlayerHits(Player& player)
 		}
 	}
 }
-
+//Check if alien hit obstacle
 void Enemy_grid::CheckAlienHits(Player& player, Obstacle* obstacles)
 {
 	if (obstacles != nullptr)
@@ -105,7 +106,7 @@ void Enemy_grid::CheckAlienHits(Player& player, Obstacle* obstacles)
 	}
 	
 }
-
+//Moves down after hitting edge of screen
 void Enemy_grid::Lower()
 {
 	for (int i = 0; i < cols; i++)
@@ -125,7 +126,7 @@ void Enemy_grid::Lower()
 		}
 	}
 }
-
+//It makes random alien shoot
 void Enemy_grid::Shoot()
 {
 	double time = GetTime();
@@ -142,7 +143,7 @@ void Enemy_grid::Shoot()
 	
 
 }
-
+//Moves grid of aliens
 void Enemy_grid::Move()
 {
 	bool shouldLower = false;
@@ -191,4 +192,14 @@ void Enemy_grid::Spawn()
 			
 		}
 	}
+}
+
+bool Enemy_grid::isGridEmpty()
+{
+	if (quanity == 0)
+	{
+		return true;
+	}
+
+	return false;
 }
