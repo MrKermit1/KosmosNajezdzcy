@@ -48,11 +48,6 @@ void Reset()
 		obstacles[2] = Obstacle(10, 700);
 		 
 		playerLife--;
-
-		if (player.getLife() == 0)
-		{
-			gameOver = true;
-		}
 	}
 	
 	
@@ -91,6 +86,14 @@ void CheckPlayerWithObstacles(Obstacle *buff)
 	
 }
 
+void CheckGameOverConditions()
+{
+	if (grid.isGridEmpty() || player.getLife() == 0)
+	{
+		gameOver = true;
+	}
+}
+
 int main()
 {
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
@@ -101,6 +104,7 @@ int main()
 		BeginDrawing();
 		ClearBackground(BLACK);
 		GUI();
+
 		if (!gameOver)
 		{
 			player.Move();
@@ -111,6 +115,7 @@ int main()
 			grid.Move();
 			grid.Shoot();
 			Reset();
+			CheckGameOverConditions();
 			grid.Spawn();
 			SpawnObstacles();
 			player.Spawn();
@@ -122,3 +127,14 @@ int main()
 
 	return 0;
 }
+
+/*
+	TODO:
+		-GAME:
+			-INPUT NAME OF PLAYER
+			-MAYBE COMPILE TO WEB ASM
+			-DB:
+				-SQL CONNECTION
+				-SAVING SCORES IN DB
+				-SECURE DB USER INFO
+*/
