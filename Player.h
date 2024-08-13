@@ -4,14 +4,17 @@
 #include <vector>
 #include <iostream>
 #include "gameobject.h"
+
 class Player : public GameObject
 {
 protected:
-	//Bullet bullet;
+	Texture2D texture;
+	Image image;
 	std::vector<Bullet> bullets;
-	int score = 0;
-	bool shootOut = false;
+	int score;
+	bool shootOut;
 	int life;
+	bool textureLoaded;
 
 public:
 	
@@ -31,7 +34,8 @@ public:
 
 	std::vector<Bullet>& getBulltets();
 	Rectangle getRect();
-
+	void LoadTextures();
+	void UnloadTextures();
 	
 
 };

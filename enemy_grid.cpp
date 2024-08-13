@@ -7,7 +7,7 @@ void Enemy_grid::Init()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			aliens[j][i] = Enemy(i * 50 + 5, j * 50 + 100, 45, 45, 1, WHITE);
+			aliens[j][i] = Enemy(i * 50 + 5, j * 50 + 100, 45, 45, 1, BLACK);
 		}
 	}
 }
@@ -190,6 +190,36 @@ void Enemy_grid::Spawn()
 				aliens[j][i].Spawn();
 			}
 			
+		}
+	}
+}
+
+void Enemy_grid::LoadAssets()
+{
+	for (int i = 0; i < cols; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
+			if (aliens[j][i].getIsAlive())
+			{
+				aliens[j][i].LoadTextures();
+			}
+
+		}
+	}
+}
+
+void Enemy_grid::UnloadAssets()
+{
+	for (int i = 0; i < cols; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
+			if (aliens[j][i].getIsAlive())
+			{
+				aliens[j][i].UnloadTextures();
+			}
+
 		}
 	}
 }

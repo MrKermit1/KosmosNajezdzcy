@@ -24,6 +24,7 @@ public:
 	void Shoot();
 	void CheckPlayerHits(Player&);
 	void CheckAlienHits(Player&, Obstacle*);
-
+	void LoadAssets();
+	void UnloadAssets();
 	bool isGridEmpty();
 };

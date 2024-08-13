@@ -6,10 +6,13 @@ class Enemy: public GameObject
 private:
 
 	Bullet bullet;
+	Texture2D texture;
+	Image image;
 	std::vector<Bullet> bullets;
 	Color color;
 	bool isAlive;
 	bool shootOut;
+	bool textureLoaded;
 
 public:
 
@@ -29,8 +32,9 @@ public:
 	void setIsAlive(bool);
 
 	void DeleteBullet(std::vector<Bullet>::iterator);
-	void ResetBullets();
 	std::vector<Bullet>& getBulltets();
+	void LoadTextures();
+	void UnloadTextures();
 
 };
 

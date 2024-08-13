@@ -9,6 +9,27 @@ Enemy::Enemy(int x, int y, int width, int heigth, int speed, Color color) : Game
 	this->color = color;
 	isAlive = true;
 	shootOut = false;
+	textureLoaded = false;
+}
+
+void Enemy::LoadTextures()
+{
+	if (!textureLoaded)
+	{
+		image = LoadImage("assets/aliens/alien1.png");
+		texture = LoadTextureFromImage(image);
+		UnloadImage(image);
+		textureLoaded = true;
+	}
+}
+
+void Enemy::UnloadTextures()
+{
+	if (textureLoaded)
+	{
+		UnloadTexture(texture);
+		textureLoaded = false;
+	}
 }
 
 void Enemy::setColor(Color color)
@@ -29,6 +50,7 @@ void Enemy::Spawn()
 		}
 	}
 	DrawRectangleV(position ,size, color);
+	DrawTextureV(texture, position, RAYWHITE);
 }
 
 Bullet Enemy::getBullet()
@@ -53,7 +75,7 @@ bool Enemy::IsColorBlack(Color color)
 
 void Enemy::Shoot()
 {
-	if (!IsColorBlack(color))
+	if (isAlive)
 	{
 		if (!shootOut)
 		{

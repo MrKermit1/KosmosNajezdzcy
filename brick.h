@@ -11,10 +11,10 @@ public:
 	Brick(float, float, float, float);
 	Brick();
 	void Spawn();
-	void CheckCollisionWithAliens(Enemy&);
 
 	bool isDestroyed();
 	void Destroy();
 	void setColor(Color);
+	
 };
 

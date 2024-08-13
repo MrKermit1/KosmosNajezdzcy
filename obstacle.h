@@ -3,6 +3,7 @@
 #include "enemy.h"
 #include "brick.h"
 #include "raylib.h"
+#include <iostream>
 class Obstacle : public GameObject
 {
 private:

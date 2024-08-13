@@ -3,6 +3,9 @@
 Player::Player(float x, float y, float width, float heigth, int speed, int life) : GameObject(x, y, width, heigth, speed)
 {
 	this->life = life;
+	shootOut = false;
+	score = 0;
+	textureLoaded = false;
 }
 
 Player::Player(){}
@@ -53,7 +56,8 @@ void Player::Move()
 
 void Player::Spawn()
 {
-	DrawRectangleV(position, size, WHITE);
+	DrawRectangleV(position, size, BLACK);
+	DrawTextureV(texture, position, RAYWHITE);
 	for (auto& bullet : bullets) {
 		if (bullet.isActive() && !(bullet.getPosition().y < 10)) {
 			bullet.Spawn();
@@ -84,4 +88,24 @@ void Player::addScore(int pscore)
 void Player::ResetBullets()
 {
 	bullets.clear();
+}
+
+void Player::LoadTextures()
+{
+	if (!textureLoaded)
+	{
+		image = LoadImage("assets/player/player.png");
+		texture = LoadTextureFromImage(image);
+		UnloadImage(image);
+		textureLoaded = true;
+	}
+}
+
+void Player::UnloadTextures()
+{
+	if (textureLoaded)
+	{
+		UnloadTexture(texture);
+		textureLoaded = false;
+	}
 }

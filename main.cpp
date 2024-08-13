@@ -7,17 +7,16 @@ const int SCREEN_HEIGTH = 1000;
 const int SCREEN_WIDTH = 1280;
 
 Enemy_grid grid;
-Player player = Player(640, 900, 100, 50, 12, 4);
+Player player = Player(640, 900, 100, 10, 12, 4);
 Obstacle obstacles[3] =
 {
 	Obstacle(955, 700),
 	Obstacle(500, 700),
 	Obstacle(10, 700)
 };
-
-
 int playerLife = player.getLife();
 bool gameOver = false;
+bool win = false;
 void GUI()
 {
 	if (!gameOver)
@@ -25,8 +24,13 @@ void GUI()
 		DrawText(TextFormat("Score: %08i", player.getScore()), 50, 40, 20, WHITE);
 		DrawText(TextFormat("Life: %02i", player.getLife()), 1150, 40, 20, WHITE);
 	}
-	else {
+	else if(!win && gameOver) 
+	{
 		DrawText(TextFormat("GAME OVER\n\nYour Score: %08i", player.getScore()), (SCREEN_WIDTH / 2) - 100, SCREEN_HEIGTH / 2, 20, WHITE);
+	}
+	else if (win && gameOver)
+	{
+		DrawText(TextFormat("YOU WIN!\n\nYour Score: %08i", player.getScore()), (SCREEN_WIDTH / 2) - 100, SCREEN_HEIGTH / 2, 20, WHITE);
 	}
 	
 }
@@ -35,7 +39,9 @@ void Reset()
 {
 	if (player.getLife() + 1 == playerLife)
 	{
+		grid.UnloadAssets();
 		grid = Enemy_grid();
+		grid.LoadAssets();
 		player.ResetBullets();
 		player.setPosX(640);
 		player.setPosY(900.);
@@ -90,15 +96,22 @@ void CheckGameOverConditions()
 {
 	if (grid.isGridEmpty() || player.getLife() == 0)
 	{
+		if (grid.isGridEmpty())
+		{
+			win = true;
+		}
 		gameOver = true;
 	}
 }
 
 int main()
 {
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
 
+	InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Epicki Kosmiczny Pojedynek");
 	SetTargetFPS(60);
+
+	grid.LoadAssets();
+	player.LoadTextures();
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
@@ -107,6 +120,7 @@ int main()
 
 		if (!gameOver)
 		{
+
 			player.Move();
 			player.Shoot();
 			grid.CheckPlayerHits(player);
@@ -123,6 +137,8 @@ int main()
 		}
 		EndDrawing();
 	}
+	grid.UnloadAssets();
+	player.UnloadTextures();
 	CloseWindow();
 
 	return 0;
