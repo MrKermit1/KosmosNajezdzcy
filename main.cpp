@@ -3,11 +3,12 @@
 #include "enemy_grid.h"
 #include "obstacle.h"
 #include <iostream>
+#include <fstream>
 const int SCREEN_HEIGTH = 1000;
 const int SCREEN_WIDTH = 1280;
 
 Enemy_grid grid;
-Player player = Player(640, 900, 100, 10, 12, 4);
+Player player = Player(640, 900, 100, 10, 12, 2);
 Obstacle obstacles[3] =
 {
 	Obstacle(955, 700),
@@ -17,6 +18,7 @@ Obstacle obstacles[3] =
 int playerLife = player.getLife();
 bool gameOver = false;
 bool win = false;
+
 void GUI()
 {
 	if (!gameOver)
@@ -71,7 +73,7 @@ void CheckPlayerWithObstacles(Obstacle *buff)
 {
 	if (buff != nullptr)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			auto& bullets = player.getBulltets();
 			for (auto it = bullets.begin(); it != bullets.end();)
@@ -144,13 +146,3 @@ int main()
 	return 0;
 }
 
-/*
-	TODO:
-		-GAME:
-			-INPUT NAME OF PLAYER
-			-MAYBE COMPILE TO WEB ASM
-			-DB:
-				-SQL CONNECTION
-				-SAVING SCORES IN DB
-				-SECURE DB USER INFO
-*/
